@@ -10,33 +10,49 @@
  * };
  */
 class Solution {
-    void inorder(TreeNode*root,vector<int>&ans){
-        
-     
-        if(root==NULL){
-            return;
-            
-        }
-        
-        
-        inorder(root->left,ans);
-        ans.push_back(root->val);
-        
-        inorder(root->right,ans);
-           
-        
-    }
-    
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-            vector<int>ans;
-        if(root==NULL){
-            return ans;
-        }
- 
-        inorder(root,ans);
-        return ans;
+        vector<int>ans;
+        TreeNode*curr=root;
         
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                //predecessor find karo
+                  TreeNode*pred=curr->left;
+                    while(pred->right!=curr  && pred->right!=NULL ){
+                        pred=pred->right;
+                    }
+                
+                if(pred->right==NULL){
+                    pred->right=curr;
+                    curr=curr->left;
+                    
+                    
+                }
+                else{
+                    pred->right=NULL;
+                    ans.push_back(curr->val);
+                    curr=curr->right;
+                }
+                
+                    
+                    
+                    
+                    
+                
+                
+            }
+            
+            
+            
+            
+            
+        }
+        return ans;
         
         
     }
