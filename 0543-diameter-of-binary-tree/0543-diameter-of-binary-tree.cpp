@@ -10,26 +10,26 @@
  * };
  */
 class Solution {
-    pair<int,int>check(TreeNode*root){
+  pair<int,int>solve(TreeNode*root){
         if(root==NULL){
+            
             pair<int,int>p=make_pair(0,0);
             return p;
         }
         
         
+        pair<int,int>left=solve(root->left);
+        pair<int,int>right=solve(root->right);
         
-        pair<int,int>left=check(root->left);
-        pair<int,int>right=check(root->right);
+        int op1=left.first;
+        int op2=right.first;
+        int op3=left.second+right.second+1;
         
-        
-        int p1=left.first;
-        int p2=right.first;
-        int p3=left.second+right.second+1;
         
         pair<int,int>ans;
-        
-        ans.first=max(p1,max(p2,p3));
         ans.second=max(left.second,right.second)+1;
+        
+        ans.first=max(op1,max(op2,op3));
         
         
         return ans;
@@ -38,12 +38,11 @@ class Solution {
         
     }
     
-    
 public:
     int diameterOfBinaryTree(TreeNode* root) {
         
         
-        return check(root).first-1;
+        return solve(root).first-1;
         
     }
 };
