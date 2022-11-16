@@ -19,10 +19,28 @@ public:
         
         
     }
+   int solveTab(int n){
+        vector<int>dp(n+1,0);
+        
+        
+        for(int target =1;target<=n;target++){
+               int ans=INT_MAX;
+          for(int i=1;i*i<=target;i++){
+            ans=min(ans,1+dp[target-(i*i)]);
+            
+        }
+         dp[target]=ans;
+         
+            
+            
+        }
+        return dp[n];
+        
+        
+    }
     
     int numSquares(int n) {
-    vector<int>dp(n+1,-1);
-       return solve(n,dp);
+  return solveTab(n);
         
     }
 };
