@@ -11,21 +11,25 @@ class Solution{
 public:
     int kthLargest(vector<int> &arr,int N,int K){
        
-        vector<int>ans;
-        
-        for(int i=0;i<N;i++){
-            int sum=0;
-            for(int j=i;j<N;j++){
-                sum+=arr[j];
-                ans.push_back(sum);
-                    
-                
-            }
-        }
-        
-        sort(ans.begin(),ans.end());
-        
-        return ans[ans.size()-K];
+       priority_queue<int,vector<int>,greater<int>>minHeap;
+       
+      for(int i=0;i<N;i++){
+          int sum=0;
+          for(int j=i;j<N;j++){
+              sum+=arr[j];
+              if(minHeap.size()<K){
+                  minHeap.push(sum);
+              }
+              else{
+                  if(sum>minHeap.top()){
+                      minHeap.pop();
+                      minHeap.push(sum);
+                  }
+              }
+              
+          }
+      }
+      return minHeap.top();
        
         
     }
