@@ -9,47 +9,30 @@
  * };
  */
 class Solution {
-    int len(ListNode*head){
-        
-        ListNode*temp=head;
-        int count=0;
-        
-        if(temp==NULL){
-            return count;
-        }
-        
-        while(temp!=NULL){
-            temp=temp->next;
-            count++;
-        }
-        
-        
-        return count;
-        
-        
-    }
-    
-    
+   
 public:
     ListNode* middleNode(ListNode* head) {
         if(head==NULL){
             return head;
         }
-        int size=len(head);
-        int mid=size/2;
-        cout<<size<<endl;
-        ListNode*temp=head;
-        while(mid>0 && temp!=NULL){
-                
-            temp=temp->next;
-            mid--;
+        
+        ListNode*slow=head;
+        ListNode*fast=head;
+        
+        while(fast->next!=NULL && fast!=NULL){
+            
+            
+            slow=slow->next;
+            
+            fast=fast->next;
+            if(fast->next!=NULL){
+                fast=fast->next;
+            }
             
             
         }
+        return slow;
         
-        
-        
-     return temp;   
         
         
         
