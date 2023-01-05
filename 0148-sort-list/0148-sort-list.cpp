@@ -45,24 +45,27 @@ public:
         
         
         ListNode*curr=new ListNode(0);
-        ListNode*temp;
-      
+        ListNode*temp=curr;
+      while(f!=NULL && s!=NULL){
             if(f->val<=s->val){
-                    temp=f;
-                temp->next=mergeSort(f->next,s);
+                    curr->next=f;
+               f=f->next;
             }
             else{
-                temp=s;
-                temp->next=mergeSort(f,s->next);
+            curr->next=s;
+                s=s->next;
                 
             }
+          curr=curr->next;
 
+      }
             
-            
-        
+        if(f!=NULL ||s!=NULL){
+            curr->next=(f!=NULL)?f:s;
+        }
         
      
-            return temp;
+            return temp->next;
     }
     
     ListNode* sortList(ListNode* head) {
