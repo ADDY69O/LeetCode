@@ -5,7 +5,7 @@ public:
     string encode(string longUrl) {
         ans=longUrl;
         for(int i=0;i<ans.size();i++){
-            ans[i]+=95;
+            ans[i]+=4;
         }
         return ans;
         
@@ -13,9 +13,12 @@ public:
 
     // Decodes a shortened URL to its original URL.
     string decode(string shortUrl) {
+        cout<<ans<<endl;
          for(int i=0;i<ans.size();i++){
-            ans[i]-=95;
+            ans[i]-=4;
+             
         }
+        cout<<ans<<endl;
         return ans;
     }
 };
