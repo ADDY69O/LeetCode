@@ -1,26 +1,31 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+     
+        //using kadane's algorithm
         
-        int max=INT_MIN;
-        int curr=0;
+        //if the sum gets less than zero initialized with zero 
+    
+        int maxi=INT_MIN;
         
-        
+        int sum=0;
         for(int i=0;i<nums.size();i++){
-        
-            curr+=nums[i];
+            sum+=nums[i];
+              maxi=max(maxi,sum);
+            if(sum<0)sum=0;
+            cout<<sum<<endl;
             
-            if(curr>max){
-                max=curr;
-            }
-            if(curr<0){
-                curr=0;
-            }
-            
+           
             
             
         }
-        return max;
+        
+        
+        return maxi;
+        
+        
+        
+        
         
         
     }
