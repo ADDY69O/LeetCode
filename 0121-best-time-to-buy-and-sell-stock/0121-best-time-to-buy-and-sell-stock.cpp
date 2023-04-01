@@ -51,30 +51,55 @@ public:
         //using space optimization
         
         
-        vector<int>next(2,0);
+//         vector<int>next(2,0);
         
-          for(int ind=n-1;ind>=0;ind--){
-              vector<int>curr(2);
+//           for(int ind=n-1;ind>=0;ind--){
+//               vector<int>curr(2);
+//             for(int buy=0;buy<=1;buy++){
+//                 int profit=0;
+//                 if(buy){
+            
+//                profit= max( -prices[ind] + next[0],0 + next[1]);
+//                       }
+//                else{
+//             profit= max(prices[ind],0 +  next[0]);
+//                      }       
+        
+//             curr[buy]= profit;
+                
+//             }
+//               next =curr;
+            
+            
+//         }
+        
+//         return next[1];
+        
+        //without using space 
+            
+            int nextBuy=0;
+            int nextNot=0;
+        for(int ind=n-1;ind>=0;ind--){
+                int currBuy;
+                int currNot;
             for(int buy=0;buy<=1;buy++){
                 int profit=0;
                 if(buy){
             
-               profit= max( -prices[ind] + next[0],0 + next[1]);
+               profit= max( -prices[ind] + nextNot,0 + nextBuy);
                       }
                else{
-            profit= max(prices[ind],0 +  next[0]);
+            profit= max(prices[ind],0 +  nextNot);
                      }       
-        
-            curr[buy]= profit;
-                
+            if(buy==1)
+            currBuy= profit;
+             else currNot=profit;   
             }
-              next =curr;
-            
-            
+           nextBuy=currBuy;
+            nextNot=currNot;
         }
         
-        return next[1];
-        
+        return nextBuy;
         
         
         
