@@ -39,30 +39,52 @@ public:
         // return solve(nums,0,-1);
         // vector<vector<int>>dp(n+1,vector<int>(n+2,-1));
         // return memoize(nums,0,0,dp);
+        //using tabulation
+//        vector<vector<int>>dp(n+1,vector<int>(n+2,0));
         
-       vector<vector<int>>dp(n+1,vector<int>(n+2,0));
+        
+//         for(int i=n-1;i>=0;i--){
+//             for(int pick=i-1;pick>=-1;pick--){
+//                 int take=0;
+//            if(pick==-1 ||  nums[i]>nums[pick]){
+             
+//                 take = 1 + dp[i+1][i+1];
+//         }
+//         int notTake = 0 + dp[i+1][pick+1];
+        
+//         dp[i][pick+1]= max(take,notTake);    
+//             }
+            
+            
+//         }
+      
+        
+//         return dp[0][0];
+        
+        //using space optimization
+            
+            vector<int>next(n+1,0);
         
         
         for(int i=n-1;i>=0;i--){
+            vector<int>curr(n+1,0);
             for(int pick=i-1;pick>=-1;pick--){
                 int take=0;
            if(pick==-1 ||  nums[i]>nums[pick]){
              
-                take = 1 + dp[i+1][i+1];
+                take = 1 + next[i+1];
         }
-        int notTake = 0 + dp[i+1][pick+1];
+        int notTake = 0 + next[pick+1];
         
-        dp[i][pick+1]= max(take,notTake);    
+        curr[pick+1]= max(take,notTake);    
             }
+            next=curr;
             
             
         }
       
         
-        return dp[0][0];
-        
-            
-        
+        return next[0];
         
     }
 };
