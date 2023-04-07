@@ -63,28 +63,45 @@ public:
         
         //using space optimization
             
-            vector<int>next(n+1,0);
+//             vector<int>next(n+1,0);
         
         
-        for(int i=n-1;i>=0;i--){
-            vector<int>curr(n+1,0);
-            for(int pick=i-1;pick>=-1;pick--){
-                int take=0;
-           if(pick==-1 ||  nums[i]>nums[pick]){
+//         for(int i=n-1;i>=0;i--){
+//             vector<int>curr(n+1,0);
+//             for(int pick=i-1;pick>=-1;pick--){
+//                 int take=0;
+//            if(pick==-1 ||  nums[i]>nums[pick]){
              
-                take = 1 + next[i+1];
-        }
-        int notTake = 0 + next[pick+1];
+//                 take = 1 + next[i+1];
+//         }
+//         int notTake = 0 + next[pick+1];
         
-        curr[pick+1]= max(take,notTake);    
-            }
-            next=curr;
+//         curr[pick+1]= max(take,notTake);    
+//             }
+//             next=curr;
             
             
-        }
+//         }
       
         
-        return next[0];
+//         return next[0];
+        
+        //using 2nd tabulation approach
+        
+        vector<int>dp(n,1);
+        int maxi=1;
+        for(int i=0;i<n;i++){
+            for(int prev=0;prev<i;prev++){
+                
+                if(nums[prev]<nums[i]){
+                    dp[i] = max(dp[i], 1 + dp[prev]);
+                }
+            }
+            maxi=max(maxi,dp[i]);
+        }
+        
+        return maxi;
+        
         
     }
 };
