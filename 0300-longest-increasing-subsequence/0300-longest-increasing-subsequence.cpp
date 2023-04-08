@@ -129,27 +129,72 @@ public:
 //         }
         
 //         return maxi;
+
         
         
+    
         //using binary search
-        vector<int>ans;
-        ans.push_back(nums[0]);
-        for(int i=1;i<nums.size();i++){
-            if(ans.back()<nums[i]){
-                ans.push_back(nums[i]);
-            }
-            else{
+//         vector<int>ans;
+//         ans.push_back(nums[0]);
+//         for(int i=1;i<nums.size();i++){
+//             if(ans.back()<nums[i]){
+//                 ans.push_back(nums[i]);
+//             }
+//             else{
                   
-  vector<int>::iterator idx;
-                int ele = nums[i];
-                // int idx = find(ans,ele);
-                 idx = lower_bound(ans.begin(),ans.end(),ele);
-                ans[idx - ans.begin()] = nums[i];
+//   vector<int>::iterator idx;
+//                 int ele = nums[i];
+//                 // int idx = find(ans,ele);
+//                  idx = lower_bound(ans.begin(),ans.end(),ele);
+//                 ans[idx - ans.begin()] = nums[i];
+//             }
+//         }
+        
+//         return ans.size();
+        
+            //printing  longest increasing subsequence
+        vector<int>dp(n,1),hash(n);
+     
+        int last=0;
+        int maxi=0;
+        for(int i=0;i<n;i++){
+            hash[i]=i;
+            for(int j=0;j<i;j++){
+                if( nums[i]>nums[j] && dp[i]< 1 + dp[j] ){
+                    dp[i] = 1  + dp[j];
+                    hash[i]=j;
+              
+                }
+            }
+            if(maxi<dp[i]){
+                maxi=dp[i];
+                last = i;
             }
         }
+   
+        int count=0;
+        for(int i=0;i<hash.size();i++){
+            cout<<hash[i]<<" ";
+        }
+        cout<<"last element "<<endl;
+        cout<<last<<endl;
         
-        return ans.size();
+        vector<int>ans;
+        while(hash[last]!=last){
+            ans.push_back(nums[last]);
+            last = hash[last];
+            count++;
+            
+            
+        }
         
+        for(int i=ans.size()-1;i>=0;i--){
+            cout<<ans[i]<<" ";
+        }
+        
+        
+        return maxi;
+         
         
     }
 };
