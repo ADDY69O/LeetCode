@@ -32,6 +32,34 @@ public:
         
         
     }
+    int find(vector<int>arr, int ele)
+{
+    int n = arr.size();
+    int s = 0;
+    int e = n - 1;
+    int mid = s + (e - s) / 2;
+
+    while (s < e)
+    {
+
+        if (arr[mid] == ele)
+        {
+            return mid;
+        }
+        else if (arr[mid] < ele)
+        {
+            s = mid;
+        }
+        else
+        {
+            e = mid - 1;
+        }
+
+        mid = s + (e - s) / 2;
+    }
+
+    return s;
+}
     
     
     int lengthOfLIS(vector<int>& nums) {
@@ -88,19 +116,39 @@ public:
         
         //using 2nd tabulation approach
         
-        vector<int>dp(n,1);
-        int maxi=1;
-        for(int i=0;i<n;i++){
-            for(int prev=0;prev<i;prev++){
+//         vector<int>dp(n,1);
+//         int maxi=1;
+//         for(int i=0;i<n;i++){
+//             for(int prev=0;prev<i;prev++){
                 
-                if(nums[prev]<nums[i]){
-                    dp[i] = max(dp[i], 1 + dp[prev]);
-                }
+//                 if(nums[prev]<nums[i]){
+//                     dp[i] = max(dp[i], 1 + dp[prev]);
+//                 }
+//             }
+//             maxi=max(maxi,dp[i]);
+//         }
+        
+//         return maxi;
+        
+        
+        //using binary search
+        vector<int>ans;
+        ans.push_back(nums[0]);
+        for(int i=1;i<nums.size();i++){
+            if(ans.back()<nums[i]){
+                ans.push_back(nums[i]);
             }
-            maxi=max(maxi,dp[i]);
+            else{
+                  
+  vector<int>::iterator idx;
+                int ele = nums[i];
+                // int idx = find(ans,ele);
+                 idx = lower_bound(ans.begin(),ans.end(),ele);
+                ans[idx - ans.begin()] = nums[i];
+            }
         }
         
-        return maxi;
+        return ans.size();
         
         
     }
