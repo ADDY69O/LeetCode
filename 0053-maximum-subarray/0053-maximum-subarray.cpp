@@ -1,32 +1,51 @@
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-     
-        //using kadane's algorithm
+    int Brute(vector<int>nums){
         
-        //if the sum gets less than zero initialized with zero 
-    
-        int maxi=INT_MIN;
+        int maxi=-1e7;
         
-        int sum=0;
         for(int i=0;i<nums.size();i++){
-            sum+=nums[i];
-              maxi=max(maxi,sum);
-            if(sum<0)sum=0;
-            cout<<sum<<endl;
+            int sum=0;
+            for(int j=i;j<nums.size();j++){
+                sum+=nums[j];
+                maxi=max(maxi,sum);
+            }
+        }
+        
+        return maxi;
+        
+    }
+    
+    int Approach1(vector<int>nums){
+        int sum=-1e7;
+        int currSum=0;
+        
+        
+        for(int i=0;i<nums.size();i++){
             
-           
+            currSum+=nums[i];
+            sum=max(sum,currSum);
+            
+            if(currSum<0){
+                currSum=0;
+            }
+            
             
             
         }
         
-        
-        return maxi;
-        
+        return sum;
         
         
         
+    }
+    
+    int maxSubArray(vector<int>& nums) {
+     
+        //BrruteForce
+        // return Brute(nums);
         
-        
+//         Optimised O(n)
+        return Approach1(nums);
     }
 };
