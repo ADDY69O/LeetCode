@@ -10,36 +10,55 @@
  */
 class Solution {
 public:
-    void solve(ListNode*curr,ListNode*next){
-        if(next==NULL )return;
+    
+     ListNode * solve(ListNode*head){
+ ListNode*curr=head;
+        ListNode*next=head->next;
+            
         
-        if(curr->val==next->val){
-            if(next->next==NULL){
-                curr->next=NULL;
-                return;
+        while(next!=NULL){
+            if(curr->val!=next->val){
+                cout<<curr->val<<" "<<next->val<<endl;
+                curr=next;
+                next=next->next;
+                
             }
-            else{
-                curr->next=next->next;
+            else if(curr->val==next->val){
+                cout<<curr->val<<" "<<next->val<<endl;
+                while(next!=NULL && curr->val==next->val){
+                next=next->next;
+                }
+                curr->next=next;
+                curr=next;
+                if(next!=NULL)
+                next=next->next;
+                
             }
-             solve(curr,next->next);
+            
+            
+            
         }
-        else{
-            solve(next,next->next);
-        }
+        return head;
         
-       
+        
+        
+        
         
         
     }
     
+    
+    
     ListNode* deleteDuplicates(ListNode* head) {
-         if(head==NULL){
-            return NULL;
-        }
-        ListNode*curr=head;
-        ListNode*next=head->next;
-       solve(curr,next);
-        return head;
+         //BruteForce
+        //Approach 1 :-- push all elements in array than remove duplicates in array
+        
+        
+        //Approach 2
+        if(head==NULL || head->next==NULL)return head;
+        
+       
+        return solve(head);
         
     }
 };
