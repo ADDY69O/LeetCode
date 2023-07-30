@@ -10,40 +10,68 @@
  */
 class Solution {
 public:
-    void solve(ListNode*prev,ListNode*curr,ListNode*next){
-        if(next==NULL )return;
+    ListNode * solve(ListNode*head){
+        ListNode*prev=NULL;
+        ListNode*curr=head;
+        ListNode*next=head->next;
+            
         
-        if(curr->val==next->val){
-            while(curr->val==next->val && curr!=NULL){
-                if(curr->next==NULL){
-                    prev->next=NULL;
-                    return;
+        while(next!=NULL){
+            if(curr->val!=next->val){
+                prev=curr;
+                curr=next;
+                next=next->next;
+                
+            }
+            else if(curr->val==next->val){
+                while(next!=NULL&& curr->val==next->val){
+                next=next->next;
+                }
+                if(prev!=NULL){
+                    prev->next=next;
+                    
+                     curr->next=next;
+                     curr=next;
+                    if(next!=NULL)
+                     next=next->next;
                     
                 }
+                else{
+                    head=next;
+                    curr=next;
+                    if(next!=NULL)
+                    next=curr->next;
+                    
+                }
+               
                 
-                curr=curr->next;
             }
-            prev->next=curr;
             
-             solve(prev,curr,curr->next);
+            
+            
         }
-        else{
-            solve(curr,next,next->next);
-        }
+        return head;
         
-       
+        
+        
+        
         
         
     }
+    
+    
+    
     ListNode* deleteDuplicates(ListNode* head) {
-         if(head==NULL){
-            return NULL;
-        }
-        ListNode*curr=head;
-        ListNode*prev=new ListNode(0);
-        prev->next=head;
-        ListNode*next=head->next;
-       solve(prev,curr,next);
-        return prev->next;
+        //BruteForce
+        //Approach 1 :-- push all elements in array than remove duplicates in array
+        
+        
+        //Approach 2
+        if(head==NULL || head->next==NULL)return head;
+        
+       
+        return solve(head);
+        
+        
     }
 };
