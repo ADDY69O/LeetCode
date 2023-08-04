@@ -36,8 +36,32 @@ public:
         
     }
     
+    pair<int,int>optM(TreeNode*root){
+        // height , diameter;
+        
+        if(root==NULL){
+            pair<int,int>p=make_pair(0,0);
+            return p;
+        }
+        pair<int,int>left = optM(root->left);
+        pair<int,int>right= optM(root->right);
+        
+        int height = max(left.first ,  right.first)+  1;
+        int diameter = max(left.first + right.first ,max(left.second,right.second));
+        pair<int,int>ans;
+        ans.first=height;
+        ans.second=diameter;
+        return ans;
+        
+        
+        
+        
+    }
+    
+    
     
     int diameterOfBinaryTree(TreeNode* root) {
-        return solve(root);
+        // return solve(root);
+        return optM(root).second;
     }
 };
